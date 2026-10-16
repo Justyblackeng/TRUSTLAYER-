@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TrustLayer — Credit Score for Nigeria</title>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+:root{--bg:#0E1B2A;--card:#16283D;--ink:#EAF1F8;--mut:#8FA3B8;--line:#243A52;--blue:#F2A93B;--teal:#2DD4A7;--amber:#F2A93B;--vio:#7C3AED;--red:#E85D5D;--soft:#10202F;--on:#0E1B2A;--ok:#2DD4A7;--pl:var(--pl);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+:root[data-theme="wema"]{--bg:#1A0A24;--card:#2A1240;--ink:#F6EEFB;--mut:#B9A3CC;--line:#4B2A68;--blue:#E0489B;--teal:#C79BFF;--amber:#E0489B;--vio:#8E2DE2;--red:#FF6B7A;--soft:#220E33;--on:#FFFFFF;--ok:#3DDC97;--pl:#E3C8FF}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:13px;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:440px;margin:0 auto;padding:16px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px}
+.logo .sub{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:400;letter-spacing:.15em;color:var(--mut)}
+.logo span{line-height:1.1}
+.logo i{width:38px;height:38px;border-radius:8px;background:linear-gradient(135deg,#F2A93B,#2DD4A7);display:grid;place-items:center;font-style:normal;font-size:20px}
+.cur{display:flex;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:3px}
+.cur button{border:0;background:none;color:var(--mut);font-weight:700;padding:7px 12px;border-radius:6px;font-size:13px;cursor:pointer}
+.cur button.on{background:var(--teal);color:var(--on)}
+h1,h2,.logo,.btn,.tile,nav a,.seg button{font-family:"Space Grotesk",sans-serif}
+h1{font-size:21px;line-height:1.15;margin:6px 0 8px;letter-spacing:-.5px}
+h2{font-size:16px;margin:4px 0 14px}
+p.s{color:var(--mut);margin:0 0 14px;font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px;animation:in .3s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tiles{display:grid;gap:14px}
+.tile{display:flex;align-items:center;gap:16px;text-align:left;width:100%;border:0;border-radius:8px;padding:20px;color:#fff;cursor:pointer;font-size:15px;font-weight:800;transition:transform .15s;text-decoration:none}
+.tile:active{transform:scale(.98)}
+.tile .ic{font-size:26px;width:48px;height:48px;border-radius:6px;display:grid;place-items:center;flex:none}
+.tile small{display:block;font-weight:500;font-size:11px;opacity:.92;margin-top:2px}
+.tile .go{margin-left:auto;font-size:26px}
+.t1{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--teal);color:var(--ink)}.t2{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--blue);color:var(--ink)}.t3{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--vio);color:var(--ink)}.t1 .go{color:var(--teal)}.t2 .go{color:var(--blue)}.t3 .go{color:var(--pl)}.t1 .ic{background:color-mix(in srgb,var(--teal) 15%,transparent)}.t2 .ic{background:color-mix(in srgb,var(--blue) 15%,transparent)}.t3 .ic{background:color-mix(in srgb,var(--vio) 20%,transparent)}
+.steps{display:flex;gap:6px;margin-bottom:16px}
+.steps b{flex:1;height:4px;border-radius:2px;background:var(--line)}
+.steps b.d{background:var(--teal)}.steps b.c{background:var(--blue)}
+.seg{display:flex;gap:6px;background:var(--soft);padding:5px;border-radius:6px;margin-bottom:12px}
+.seg button{flex:1;border:0;background:none;padding:11px 6px;border-radius:8px;font-weight:700;color:var(--mut);font-size:12px;cursor:pointer}
+.seg button.on{background:var(--vio);color:#fff}
+input[type=text],select{width:100%;padding:14px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--ink);font-size:13px;margin-bottom:8px}
+input:focus,select:focus{outline:none;border-color:var(--blue)}
+.err{color:var(--red);font-size:13px;min-height:18px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:6px;padding:12px;font-size:14px;font-weight:700;color:var(--on);background:var(--blue);cursor:pointer;margin-top:10px;text-decoration:none}
+.btn.g{background:var(--teal)}.btn.a{background:var(--amber);color:var(--on)}.btn.o{background:var(--bg);color:var(--mut);border:1px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px}.row .btn{margin-top:10px}
+.sl{margin:16px 0}.sl div{display:flex;justify-content:space-between;font-weight:600;font-size:12px;margin-bottom:4px}.sl b{color:var(--blue)}
+input[type=range]{width:100%;accent-color:var(--blue);height:30px}
+.gauge{text-align:center}.gauge svg{width:240px;max-width:100%}
+.lab{font-weight:800;letter-spacing:1px;font-size:11px}
+.big{font-size:21px;font-weight:700;color:var(--blue);text-align:center}
+.why{display:flex;justify-content:space-between;background:var(--soft);padding:12px 14px;border-radius:8px;margin-top:8px;font-weight:600;font-size:12px}
+.up{color:var(--ok)}.dn{color:var(--red)}
+.mono,.kv b,.big,.lab{font-family:"IBM Plex Mono",monospace}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:12px;word-break:break-all;color:var(--mut);background:var(--soft);padding:10px;border-radius:8px;margin-top:12px}
+.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,var(--card))}
+.bad{border-color:var(--red);background:color-mix(in srgb,var(--red) 10%,var(--card))}
+.kv{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px}.kv span:first-child{color:var(--mut)}
+.badge{width:60px;height:60px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center;color:var(--ok);border:2px solid var(--ok)}.badge.bad{color:var(--red);border-color:var(--red)}
+.how{display:flex;gap:14px;align-items:center;margin-bottom:12px}.how .ic{font-size:30px;width:56px;height:56px;border-radius:6px;display:grid;place-items:center;flex:none}
+.how b{font-size:14px}.how span{display:block;color:var(--mut);font-size:11.5px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));z-index:9}
+nav a{flex:1;max-width:150px;text-align:center;text-decoration:none;color:var(--mut);font-weight:700;font-size:10.5px;padding:8px 4px;border-radius:8px}
+nav a i{display:block;font-style:normal;font-size:24px;margin-bottom:2px}
+nav a.on{background:var(--soft);color:var(--blue);box-shadow:inset 0 -3px 0 var(--blue)}
+
+.mbtn{width:38px;height:38px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:18px;cursor:pointer;display:grid;place-items:center}
+.hr{display:flex;gap:8px;align-items:center}
+.ov{position:fixed;inset:0;background:rgba(5,12,20,.65);z-index:30;animation:fade .2s}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.drawer{position:absolute;top:0;right:0;bottom:0;width:min(320px,86vw);background:var(--card);border-left:1px solid var(--line);padding:calc(16px + env(safe-area-inset-top,0px)) 16px 16px;display:flex;flex-direction:column;gap:8px;animation:slide .25s ease-out}
+@keyframes slide{from{transform:translateX(100%)}to{transform:none}}
+.drawer h3{margin:0 0 6px;display:flex;justify-content:space-between;align-items:center;font-family:"Space Grotesk",sans-serif}
+.mi{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:1px solid var(--line);border-left:3px solid var(--c,var(--blue));background:var(--bg);color:var(--ink);padding:12px;border-radius:6px;font-size:13px;font-weight:600;font-family:"Space Grotesk",sans-serif;cursor:pointer}
+.mi span{font-size:22px}.mi:active{transform:scale(.98)}
+.fab{position:fixed;right:14px;bottom:calc(92px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:8px;border:0;background:var(--teal);color:var(--on);font-size:28px;cursor:pointer;z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.chat{position:fixed;right:12px;bottom:calc(92px + env(safe-area-inset-bottom,0px));width:min(380px,calc(100vw - 24px));height:min(480px,calc(100vh - 140px));background:var(--card);border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:8px;display:flex;flex-direction:column;z-index:25;overflow:hidden;animation:in .25s}
+.ch{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line);font-family:"Space Grotesk",sans-serif;font-weight:700}
+.ch small{display:block;font-weight:400;color:var(--teal);font-size:12px}
+.ch button{margin-left:auto;border:0;background:none;color:var(--mut);font-size:22px;cursor:pointer}
+.cm{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.b{max-width:82%;padding:9px 11px;border-radius:6px;font-size:12.5px;line-height:1.4}
+.b.bot{background:var(--soft);border:1px solid var(--line);align-self:flex-start}
+.b.me{background:var(--blue);color:var(--on);align-self:flex-end;font-weight:500}
+.qr{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 8px}
+.qr button{border:1px solid var(--teal);background:none;color:var(--teal);border-radius:8px;padding:6px 9px;font-size:11px;cursor:pointer}
+.cf{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
+.cf input{margin:0;flex:1;padding:11px}.cf button{border:0;background:var(--blue);color:var(--on);border-radius:8px;padding:0 16px;font-size:18px;font-weight:700;cursor:pointer}
+
+.hero{text-align:center;padding:10px 0 20px}
+.hero .lg i{width:76px;height:76px;border-radius:18px;background:linear-gradient(135deg,#F2A93B,#2DD4A7);display:inline-grid;place-items:center}
+.brand{font-family:"Space Grotesk",sans-serif;font-size:24px;font-weight:700;letter-spacing:-.5px;margin-top:12px}
+.hero h1{font-size:16px;margin:6px 0 10px;color:var(--blue)}
+.chip{display:inline-block;border:1px solid var(--teal);color:var(--teal);border-radius:8px;padding:6px 12px;font-family:"IBM Plex Mono",monospace;font-size:12px}
+.hero.full{min-height:58vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.hero .lg i{width:96px;height:96px;border-radius:22px}
+.hero.full .lg i{animation:pop .8s cubic-bezier(.2,.9,.3,1.2) both}
+.hero.full .brand{animation:up .7s .35s ease-out both}
+.hero.full h1{animation:up .7s .7s ease-out both}
+@keyframes pop{from{opacity:0;transform:scale(.4) rotate(-12deg)}to{opacity:1;transform:none}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.acc{display:flex;align-items:center;justify-content:space-between;width:100%;margin:22px 0 10px;padding:14px;border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:6px;background:var(--card);color:var(--ink);font:700 14px "Space Grotesk",sans-serif;cursor:pointer}.acc span{color:var(--teal);transition:transform .2s}.acc.open span{transform:rotate(180deg)}
+.feats{display:grid;gap:10px;margin-bottom:6px}
+.ft{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--c);border-radius:6px;padding:14px}
+.ft .ic{font-size:26px;width:46px;height:46px;border-radius:6px;background:var(--soft);display:grid;place-items:center;flex:none}
+.ft b{font-family:"Space Grotesk",sans-serif;font-size:13px}.ft span{display:block;color:var(--mut);font-size:11.5px;margin-top:2px}
+
+html[data-view=mobile] nav{left:50%;right:auto;width:min(100%,440px);transform:translateX(-50%)}
+html[data-view=mobile] .fab{right:max(14px,calc(50vw - 206px))}
+html[data-view=mobile] .chat{right:max(12px,calc(50vw - 208px))}
+html[data-view=desktop] .wrap{max-width:1040px;padding:20px 28px}
+html[data-view=desktop] body{padding-top:68px;padding-bottom:24px}
+html[data-view=desktop] nav{top:0;bottom:auto;border-top:0;border-bottom:1px solid var(--line);padding:8px 20px;gap:8px}
+html[data-view=desktop] nav a{flex:none;max-width:none;display:flex;align-items:center;gap:8px;padding:9px 18px;font-size:13px}
+html[data-view=desktop] nav a i{display:inline;margin:0;font-size:18px}
+html[data-view=desktop] .tiles{grid-template-columns:repeat(3,1fr)}
+html[data-view=desktop] .feats{grid-template-columns:repeat(3,1fr)}
+html[data-view=desktop] .pg>.card,html[data-view=desktop] .pg>.steps,html[data-view=desktop] .pg>.row,html[data-view=desktop] .pg>.btn{max-width:680px;margin-left:auto;margin-right:auto}
+html[data-view=desktop] .fab,html[data-view=desktop] .chat{bottom:24px}
+#toast{display:none;position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);max-width:92vw;background:var(--card);color:var(--ink);border:1px solid var(--line);border-left:3px solid var(--red);padding:10px 14px;border-radius:6px;font-size:12.5px;z-index:50;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+
+svg.i{flex:none;vertical-align:-3px;margin-right:6px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.tile .ic svg,.ft .ic svg,.how .ic svg,nav a i svg,.mi span svg,.mbtn svg,.fab svg,.badge svg,.go svg,.acc span svg,.cf button svg,.ch button svg,.ch>svg{margin:0}
+.t1 .ic{color:var(--teal)}.t2 .ic{color:var(--blue)}.t3 .ic{color:var(--pl)}.ft .ic{color:var(--c)}.how .ic{color:var(--teal)}
+.mi span,nav a i{display:grid;place-items:center}nav a i{margin:0 auto 3px}
+.ch small::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--teal);margin-right:6px}
+.sl span{display:inline-flex;align-items:center}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<nav id="nav"></nav>
+<div id="menu"></div>
+<div id="chat"></div>
+<div id="toast"></div>
+<script>
+const API=location.protocol==="file:"?"http://localhost:8080":""; // same server serves the site and the API
+const LENDER_KEY=""; // optional x-api-key for /api/credentials/verify
+const KEYMAP={txn:"txn_frequency_monthly",vol:"avg_monthly_volume_ngn",bal:"avg_balance_stability",air:"airtime_topup_regularity",bill:"bill_payment_consistency",sav:"savings_ratio",gro:"txn_volume_growth_3m",mon:"months_of_history"};
+const IC={home:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',bank:'<path d="M3 10l9-6 9 6"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 21h18"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><path d="M12 7.5v.01"/>',menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',contrast:'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',send:'<path d="M4 12l16-8-6 16-3-7z"/>',chat:'<path d="M4 5h16v11H9l-5 4z"/>',repeat:'<path d="M4 9h13l-3-3M20 15H7l3 3"/>',banknote:'<rect x="3" y="7" width="18" height="10" rx="1"/><circle cx="12" cy="12" r="2.5"/>',scale:'<path d="M12 4v16M6 20h12M5 8h14"/><path d="M5 8l-2 6h4zM19 8l-2 6h4z"/>',phone:'<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/>',zap:'<path d="M13 3L5 14h6l-1 7 8-11h-6z"/>',coins:'<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3 3 7 3s7-1.3 7-3v-6"/>',trend:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',calendar:'<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',check:'<path d="M5 12l5 5 9-10"/>',arrow:'<path d="M9 6l6 6-6 6"/>',chev:'<path d="M6 9l6 6 6-6"/>',lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',cpu:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',card:'<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/>'};
+const I=(n,z=18)=>`<svg class="i" width="${z}" height="${z}" viewBox="0 0 24 24" aria-hidden="true">${IC[n]||""}</svg>`;
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display="none",3800)}
+async function api(path,opt={},ms=30000){const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);try{const r=await fetch(API+path,{...opt,signal:c.signal});const j=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(j.error||"Request failed");e.http=true;throw e}return j}catch(e){if(e.http)throw e;const n=new Error("offline");n.offline=true;throw n}finally{clearTimeout(t)}}
+const payee=()=>"TrustLayer"; // every fee is paid to the platform
+const myBank=()=>{const c=S.type==="bank"?S.bank:S.wbank;const b=BANKS.find(x=>x[0]===c);return b?b[1]:"your bank"}; // who sends the data
+const feeBoth=()=>"₦"+FEE.ngn+" (about $"+(FEE.ngn/RATE).toFixed(2)+")";
+function askOtp(msg){return new Promise(res=>{const d=document.createElement("div");d.className="ov";d.style.cssText="display:grid;place-items:center";
+d.innerHTML=`<div class="card" style="width:min(92vw,360px)"><h2>Approve fee</h2><p class="s">${esc(msg)}</p><input type="text" id="otpin" inputmode="numeric" maxlength="8" placeholder="Enter code" autocomplete="one-time-code"><div class="row"><button class="btn o" id="otpno">Cancel</button><button class="btn g" id="otpok">Approve</button></div></div>`;
+document.body.appendChild(d);const done=v=>{d.remove();res(v)};d.querySelector("#otpno").onclick=()=>done(null);d.querySelector("#otpok").onclick=()=>done(d.querySelector("#otpin").value.trim());d.querySelector("#otpin").focus()})}
+// The fee is debited from the account number the customer entered, after they approve with a code from their bank.
+async function payByAccount(purpose){
+  const consent=purpose==="consent";
+  const i=await api("/api/payments/debit/initiate",{method:"POST",headers:JSONH,body:JSON.stringify({purpose,bankCode:S.bank,accountNumber:S.acct})});
+  if(i.demo){toast("Demo mode: fee not charged");return null}
+  const hint=i.demoOtp?" (Demo code: "+i.demoOtp+")":"";
+  for(let n=0;n<3;n++){
+    const otp=await askOtp("Your bank sent a code to the phone linked to account ••••"+S.acct.slice(-4)+". "+(consent?"Enter it to let "+myBank()+" share a 12-month summary of your activity with TrustLayer to calculate your score. No money is taken.":"Enter it to let TrustLayer debit "+feeBoth()+" from this account and pay it to "+payee()+".")+hint);
+    if(!otp)throw new Error("Fee approval cancelled");
+    try{await api("/api/payments/debit/confirm",{method:"POST",headers:JSONH,body:JSON.stringify({reference:i.reference,otp})});return i.reference}
+    catch(e){if(!e.http||n===2)throw e;toast(e.message)}
+  }
+}
+// USD wallet: the holder signs a USDC authorisation for the fee (the wallet equivalent of the bank code).
+async function payByWallet(purpose){
+  const i=await api("/api/payments/wallet/initiate",{method:"POST",headers:JSONH,body:JSON.stringify({purpose,walletAddress:S.wal,bankCode:S.wbank||undefined})});
+  if(i.demo){toast("Demo mode: fee not charged");return null}
+  if(!window.ethereum)return linkApproval(i.reference); // no wallet in this browser: send the holder an approval link
+  let sig;
+  try{sig=await ethereum.request({method:"eth_signTypedData_v4",params:[S.wal,JSON.stringify(i.typedData)]})}catch(e){throw new Error("Fee approval cancelled")}
+  const c=await api("/api/payments/wallet/confirm",{method:"POST",headers:JSONH,body:JSON.stringify({reference:i.reference,signature:sig})},60000);
+  if(c.paid)return i.reference;
+  toast("Fee sent. Waiting for the network to confirm…");
+  return waitPaid(i.reference)
+}
+async function waitPaid(ref,stop=()=>false){
+  for(let n=0;n<100&&!stop();n++){await new Promise(r=>setTimeout(r,3000));if(stop())break;try{const s=await api("/api/payments/status?reference="+encodeURIComponent(ref));if(s.paid)return ref}catch(e){}}
+  throw new Error("Fee was not approved in time")
+}
+function linkApproval(ref){return new Promise((res,rej)=>{
+  const url=location.origin+"/approve.html?ref="+encodeURIComponent(ref);
+  const d=document.createElement("div");d.className="ov";d.style.cssText="display:grid;place-items:center";
+  d.innerHTML=`<div class="card" style="width:min(92vw,380px)"><h2>Wallet approval</h2><p class="s">No wallet in this browser. Ask the wallet holder to open this link and approve the ${esc(feeBoth())} fee. This page continues by itself.</p><div class="mono">${esc(url)}</div><div class="row"><button class="btn o" id="lno">Cancel</button><button class="btn g" id="lcp">Copy link</button></div></div>`;
+  document.body.appendChild(d);let stop=false;const end=(f,v)=>{stop=true;d.remove();f(v)};
+  d.querySelector("#lno").onclick=()=>end(rej,new Error("Fee approval cancelled"));
+  d.querySelector("#lcp").onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(url);toast("Link copied")};
+  waitPaid(ref,()=>stop).then(v=>end(res,v),e=>stop||end(rej,e))})}
+// The fee is taken from the account in question: bank code for accounts, signature for wallets.
+async function pay(purpose){
+  if(FEE.mode!=="on"){toast("Demo mode: fee not charged");return null}
+  return S.type==="bank"?payByAccount(purpose):payByWallet(purpose)
+}
+const JSONH={"Content-Type":"application/json"};
+const idBody=()=>S.type==="bank"?{idType:"bank",bankCode:S.bank,accountNumber:S.acct}:{idType:"wallet",walletAddress:S.wal,...(S.wbank?{bankCode:S.wbank}:{})};
+const BANKS=[["044","Access Bank"],["050","Ecobank"],["070","Fidelity Bank"],["011","First Bank"],["214","FCMB"],["058","GTBank"],["301","Jaiz Bank"],["082","Keystone Bank"],["221","Stanbic IBTC"],["232","Sterling Bank"],["033","UBA"],["032","Union Bank"],["035","Wema Bank"],["057","Zenith Bank"],["50211","Kuda"],["50515","Moniepoint"],["999992","OPay"],["999991","PalmPay"]];
+const FEAT=[["txn","Transactions / month",0,60,1,22,"n","repeat"],["vol","Monthly volume",5000,2000000,5000,180000,"$","banknote"],["bal","Balance stability",0,1,.01,.71,"r","scale"],["air","Airtime top-ups",0,1,.01,.85,"r","phone"],["bill","Bills paid on time",0,1,.01,.93,"r","zap"],["sav","Savings",0,1,.01,.18,"r","coins"],["gro","3-month growth",-.9,2,.01,.22,"r","trend"],["mon","Months of history",1,36,1,14,"n","calendar"]];
+const SAMPLES={"035:0123456789":{s:681,b:"Wema Bank",d:3,l:443000,h:"0x61552f5681c7968c03c88f7e77d204b71a7108e7"},"058:0987654321":{s:598,b:"GTBank",d:1,l:210000,h:"0x3f8a1c9d2e5b7a4f6c8d0e2a4b6c8d0e2a4b6c8d"},"w:0xa1b2c3d4e5f60718293a4b5c6d7e8f9012345678":{s:715,b:null,d:6,l:620000,h:"0x7b3e29a0e11f4c7d5a9b3f1c8e2d6a4b0f9c1e3d"}};
+const S={wbank:"035",theme:"classic",cur:"NGN",type:"bank",bank:"035",acct:"0123456789",wal:"0xA1B2c3D4E5F60718293a4b5C6d7E8f9012345678",f:Object.fromEntries(FEAT.map(x=>[x[0],x[5]])),res:null,tx:null,v:null,busy:false};
+const SH=n=>`<svg width="${n}" height="${n}" viewBox="0 0 24 24" fill="none" stroke="#0E1B2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>`;
+const vw=()=>innerWidth>=900?"desktop":"mobile"; // auto-detect screen size
+const setV=()=>document.documentElement.setAttribute("data-view",vw());
+addEventListener("resize",setV);matchMedia("(min-width:900px)").addEventListener("change",setV);setV();
+const setTheme=()=>{S.theme=S.theme==="wema"?"classic":"wema";R()};
+const USD=()=>S.cur==="USD";
+function setCur(c){S.cur=c;S.type=c==="USD"?"wallet":"bank";S.menu=false;R();chatR()}
+const $=s=>document.querySelector(s);
+let RATE=1550;const FEE={ngn:200,mode:"off",wallet:"off"}; // fee per on-chain save or bank verification
+const money=n=>S.cur==="NGN"?"₦"+Math.round(n).toLocaleString("en-NG"):"$"+(n/RATE).toLocaleString("en-US",{maximumFractionDigits:2});
+const idOk=()=>S.type==="bank"?/^\d{10}$/.test(S.acct):/^0x[a-fA-F0-9]{40}$/.test(S.wal);
+const key=()=>S.type==="bank"?S.bank+":"+S.acct:"w:"+S.wal.toLowerCase();
+const hex=s=>{let a=0;for(const c of s+Math.random())a=(a*31+c.charCodeAt(0))|0;return"0x"+Math.abs(a).toString(16).padStart(8,"0").repeat(5).slice(0,40)};
+const go=p=>{S.pg=p;S.menu=false;try{location.hash="#/"+p}catch(e){}R()};
+const steps=(n,t)=>`<div class="steps">${Array.from({length:t},(_,i)=>`<b class="${i+1<n?"d":i+1===n?"c":""}"></b>`).join("")}</div>`;
+const tile=(c,ic,t,sub,to)=>`<button class="tile ${c}" onclick="go('${to}')"><span class="ic">${I(ic,24)}</span><span>${t}<small>${sub}</small></span><span class="go">${I("arrow",20)}</span></button>`;
+
+function idForm(){return`${USD()?`<div class="seg"><button class="${S.type==="bank"?"on":""}" onclick="S.type='bank';R()">Bank</button><button class="${S.type==="wallet"?"on":""}" onclick="S.type='wallet';R()">${USD()?"USD wallet":"Wallet"}</button></div>`:""}
+${(S.type==="bank"||!USD())?`<select onchange="S.bank=this.value">${BANKS.map(b=>`<option value="${b[0]}" ${b[0]===S.bank?"selected":""}>${b[1]}</option>`).join("")}</select>
+<input type="text" inputmode="numeric" maxlength="10" placeholder="10-digit account" value="${S.acct}" oninput="this.value=S.acct=this.value.replace(/\\D/g,'');chk()">`:`<select onchange="S.wbank=this.value"><option value="">No bank (independent wallet)</option>${BANKS.map(b=>`<option value="${b[0]}" ${b[0]===S.wbank?"selected":""}>${b[1]}</option>`).join("")}</select><input type="text" placeholder="0x… wallet" value="${S.wal}" oninput="S.wal=this.value;chk()">`}<div class="err" id="err"></div>`}
+function chk(){const ok=idOk();const b=$("#next");if(b)b.disabled=!ok;const e=$("#err");if(e)e.textContent=ok?"":(S.type==="bank"?"Needs 10 digits":"Needs 0x + 40 characters")}
+
+function gauge(sc){const col=sc>=740?"var(--ok)":sc>=670?"var(--blue)":sc>=580?"var(--blue)":"var(--red)",L=sc>=740?"Excellent":sc>=670?"Good":sc>=580?"Fair":"Building",p=(sc-300)/550*282.6;
+return`<div class="gauge"><svg viewBox="0 0 220 130"><path d="M20 110A90 90 0 0 1 200 110" fill="none" stroke="var(--line)" stroke-width="16" stroke-linecap="round"/><path d="M20 110A90 90 0 0 1 200 110" fill="none" style="stroke:${col}" stroke-width="16" stroke-linecap="round" stroke-dasharray="${p} 283"/><text x="110" y="95" text-anchor="middle" font-size="42" font-weight="800" fill="var(--ink)">${sc}</text></svg><div class="lab" style="color:${col}">${L.toUpperCase()}</div></div>`}
+
+const P={
+home:()=>{const u=USD();const F=[["cpu","var(--teal)","AI scoring","Phone activity like top-ups, bills and savings becomes a credit score."],["bank","var(--blue)","Bank-issued","Your own bank signs the score onchain. No middleman."],["lock","var(--pl)","Private","Only a hash goes onchain. Your raw data stays with you."],["zap","var(--teal)","Instant checks","Lenders look you up and see your score in seconds."],["repeat","var(--blue)",u?"Dollar mode is on":"₦ and $","Switch currency anytime. "+(u?"Amounts and USD wallets now show everywhere.":"Amounts update everywhere.")],["card","var(--teal)","Simple fee",feeBoth()+" per on-chain save or bank verification, taken from the account or wallet after you approve, and paid to TrustLayer. Scoring is free."],["chat","var(--pl)","Customer care","Tap to chat with us anytime."]];
+return`<h1 style="font-size:19px">What would you like to do?</h1><p class="s">${u?"Showing USD · ₦1,550 = $1":"₦ Showing Naira"}</p><div class="tiles">${tile("t1","user","Get my score","For borrowers","score")}${tile("t2","bank","Verify a score","For lenders","verify")}${tile("t3","info","How it works","30-second tour","how")}</div><button class="acc ${S.feat?"open":""}" onclick="S.feat=!S.feat;R()">What you get<span>${I("chev",16)}</span></button>${S.feat?`<div class="feats">${F.map(f=>`<div class="ft" style="--c:${f[1]}"><div class="ic">${I(f[0],20)}</div><div><b>${f[2]}</b><span>${f[3]}</span></div></div>`).join("")}</div>`:""}`},
+landing:()=>`<div class="hero full"><div class="lg"><i>${SH(48)}</i></div><div class="brand">TrustLayer</div><h1>Get unbanked customers banked onchain</h1></div>`,
+score:()=>`${steps(1,4)}<div class="card"><h2>Who are you?</h2>${idForm()}<button id="next" class="btn" ${idOk()?"":"disabled"} onclick="go('score/activity')">Next </button></div>`,
+"score/activity":()=>S.type==="bank"?`${steps(2,4)}<div class="card"><h2>Approve data sharing</h2><p class="s">${esc(myBank())} will send TrustLayer a signed 12-month summary of account ••••${S.acct.slice(-4)}:</p><div class="why"><span>Transactions · Airtime · Bills · Savings</span></div><p class="s" style="font-size:11px;margin-top:10px">No statements or balances leave the bank. You approve with a code from your bank, and your bank signs the result so it cannot be changed.</p><div class="row"><button class="btn o" onclick="go('score')"></button><button class="btn g" ${S.busy?"disabled":""} onclick="calc()">${S.busy?"Working…":"Approve & get score"}</button></div></div>`:`${steps(2,4)}<div class="card"><h2>Your activity</h2>${USD()?`<p class="s" style="font-size:13px">Shown in USD · ₦1,550 = $1</p>`:""}${FEAT.map(x=>`<div class="sl"><div><span>${I(x[7],15)}${x[1]}</span><b id="v_${x[0]}">${fmt(x,S.f[x[0]])}</b></div><input type="range" min="${x[2]}" max="${x[3]}" step="${x[4]}" value="${S.f[x[0]]}" oninput="S.f.${x[0]}=+this.value;$('#v_${x[0]}').textContent=fmt(FEAT.find(q=>q[0]==='${x[0]}'),+this.value)"></div>`).join("")}
+<div class="row"><button class="btn o" onclick="go('score')"></button><button class="btn g" ${S.busy?"disabled":""} onclick="calc()">${S.busy?"Working…":"Get score"}</button></div></div>`,
+"score/result":()=>{if(!S.res)return redir("score");const r=S.res;return`${steps(3,4)}<div class="card">${gauge(r.s)}${r.src?`<p class="s" style="text-align:center;font-size:12px;margin:8px 0 0">Activity data signed by ${esc(r.src)}</p>`:""}<div class="lab" style="text-align:center;color:var(--mut);margin-top:14px">YOU CAN BORROW UP TO</div><div class="big">${money(r.l)}</div><div style="margin-top:14px;font-weight:700">Why?</div>${r.why.map(w=>`<div class="why"><span>${w.i} ${w.l}</span><span class="${w.up?"up":"dn"}">${w.up?"High":"Low"}</span></div>`).join("")}${USD()?`<div class="mono">#${r.h.slice(0,42)}…</div>`:""}
+<p class="s" style="font-size:11px;margin-top:12px">${feeBoth()} will be taken from ${S.type==="bank"?"account ••••"+S.acct.slice(-4)+" after you approve with a code from your bank":"your wallet in USDC after you approve with a signature"}. Paid to ${payee()}.</p><div class="row"><button class="btn o" onclick="go('score/activity')"></button><button class="btn a" ${S.busy?"disabled":""} onclick="mint()">${S.busy?"Saving…":"Save on-chain · "+money(FEE.ngn)}</button></div></div>`},
+"score/done":()=>{if(!S.tx)return redir("score");return`${steps(4,4)}<div class="card ok"><div class="badge">${I("check",30)}</div><h2 style="text-align:center">Done!</h2><p class="s" style="text-align:center">Score <b>${S.res.s}</b> is live. Any lender can check it.</p>${S.feeTo?`<p class="s" style="text-align:center;font-size:12px">Fee paid to ${esc(S.feeTo)}</p>`:""}${USD()?`<div class="mono">${S.tx.slice(0,48)}…</div>`:""}${S.link?`<a class="btn o" href="${S.link}" target="_blank" rel="noopener">View on explorer</a>`:""}<button class="btn" onclick="go('verify')">Try lender check</button><button class="btn o" onclick="go('home')">Home</button></div>`},
+verify:()=>`${steps(1,2)}<div class="card"><h2>Find a score</h2>${idForm()}<p class="s" style="font-size:13px">${USD()?"Sample USD wallet is pre-filled.":"Try samples: Wema <b>035 / 0123456789</b> · GTBank <b>058 / 0987654321</b>"}<br>${feeBoth()} is taken from this ${S.type==="bank"?"account after the holder approves with a code":"wallet in USDC after the holder approves with a signature"}. Paid to ${payee()}.</p><button id="next" class="btn a" ${idOk()?"":"disabled"} ${S.busy?"disabled":""} onclick="look()">${S.busy?"Checking…":"Check · "+money(FEE.ngn)}</button></div>`,
+"verify/result":()=>{if(S.v===null)return redir("verify");const v=S.v;return`${steps(2,2)}${v?`<div class="card ok"><div class="badge">${I("check",30)}</div><h2 style="text-align:center">Valid score</h2>${v.b?`<div class="kv"><span>Bank</span><b>${v.b}</b></div>`:""}<div class="kv"><span>Score</span><b>${v.s}</b></div><div class="kv"><span>Issued</span><b>${new Date(v.at||Date.now()-864e5*v.d).toLocaleDateString("en-NG")}</b></div>${v.feeTo?`<div class="kv"><span>Fee paid to</span><b>${esc(v.feeTo)}</b></div>`:""}<div class="kv"><span>Can borrow</span><b>${money(v.l)}</b></div>${USD()?`<div class="mono">#${v.h}…</div>`:""}<p class="s" style="margin-top:10px;font-size:13px">No private data was shared.</p></div>`:`<div class="card bad"><div class="badge bad">${I("x",30)}</div><h2 style="text-align:center">Not found</h2><p class="s" style="text-align:center">No score saved for this ID yet.</p></div>`}<div class="row"><button class="btn o" onclick="go('verify')">Again</button><button class="btn" onclick="go('home')">Home</button></div>`},
+how:()=>{const d=[["phone","color-mix(in srgb,var(--teal) 15%,transparent)","Phone activity","Top-ups, bills and savings become a score."],["bank","color-mix(in srgb,var(--blue) 18%,transparent)","Your bank signs it","No middleman. Your own bank issues it."],["lock","color-mix(in srgb,var(--vio) 20%,transparent)","Only a hash is public","Your raw data stays private."],["zap","color-mix(in srgb,var(--teal) 15%,transparent)","Lenders check fast","Enter your ID, see score in seconds."]];return`<h1>How it works</h1><p class="s">4 simple steps</p><div class="card">${d.map((x,i)=>`<div class="how"><div class="ic" style="background:${x[1]}">${I(x[0],24)}</div><div><b>${i+1}. ${x[2]}</b><span>${x[3]}</span></div></div>`).join("")}</div><button class="btn g" onclick="go('score')">Get my score</button><button class="btn a" onclick="go('verify')">Verify a score</button>`}
+};
+function fmt(x,v){return x[6]==="$"?money(v):x[4]<1?(v*100).toFixed(0)+"%":Math.round(v)}
+function redir(p){setTimeout(()=>go(p));return""}
+async function calcMock(){S.busy=true;R();await new Promise(r=>setTimeout(r,1300));const f=S.f,t=f.txn*3.5+Math.log1p(f.vol)*14+f.bal*180+f.air*120+f.bill*220+f.sav*150+f.gro*60+f.mon*2.5,s=Math.max(300,Math.min(850,Math.round(300+t/1050*550))),
+why=FEAT.map(x=>{const n=(f[x[0]]-x[2])/(x[3]-x[2]);return{l:x[1],i:x[7],n,up:n>.5}}).sort((a,b)=>Math.abs(b.n-.5)-Math.abs(a.n-.5)).slice(0,3);
+S.res={s,why,h:hex(JSON.stringify(f)),l:Math.round(f.vol*(1+2*((s-300)/550))/1e3)*1e3};S.busy=false;go("score/result")}
+async function mintMock(){S.busy=true;R();await new Promise(r=>setTimeout(r,1500));S.tx=hex(key());S.busy=false;go("score/done")}
+async function lookMock(){S.busy=true;R();await new Promise(r=>setTimeout(r,900));S.v=SAMPLES[key()]||false;S.busy=false;go("verify/result")}
+
+async function calc(){S.busy=true;R();try{const consentRef=S.type==="bank"?await payByAccount("consent"):null;const r=await api("/api/score",{method:"POST",headers:JSONH,body:JSON.stringify({...idBody(),...(consentRef?{consentRef}:{features:Object.fromEntries(Object.entries(S.f).map(([k,v])=>[KEYMAP[k],v]))})})},40000);S.res={s:r.score,l:r.loanEligibilityNgn,h:r.credentialHash,draftId:r.draftId,live:true,src:r.dataSignedBy,why:r.explanations.map(e=>({l:e.feature,i:"•",up:e.direction==="helped"}))};S.busy=false;go("score/result")}catch(e){if(e.offline){toast("Backend offline. Showing demo data.");return calcMock()}S.busy=false;toast(e.message);R()}}
+async function mint(){if(!S.res.live)return mintMock();S.busy=true;R();try{let ref=S.res.payRef;if(!ref){ref=await pay("mint");S.res.payRef=ref}let signature;if(S.type==="wallet"&&!ref){if(!window.ethereum)throw new Error("Open in a wallet browser (e.g. MetaMask) to sign");signature=await ethereum.request({method:"personal_sign",params:["TrustLayer mint "+S.res.draftId,S.wal]})}const r=await api("/api/credentials/mint",{method:"POST",headers:JSONH,body:JSON.stringify({draftId:S.res.draftId,signature,paymentRef:ref||undefined})},90000);if(r.pending)toast("Sent! The network is still confirming it.");S.tx=r.txHash;S.link=r.explorerUrl;S.feeTo=r.feeTo;S.busy=false;go("score/done")}catch(e){S.busy=false;toast(e.offline?"Backend unreachable":e.message);R()}}
+async function look(){S.busy=true;R();try{const ref=await pay("verify");const r=await api("/api/credentials/verify?"+new URLSearchParams({...idBody(),...(ref?{paymentRef:ref}:{})}),{headers:LENDER_KEY?{"x-api-key":LENDER_KEY}:{}});if(r.found&&!r.valid)toast("This credential is revoked or expired");S.v=r.found&&r.valid?{s:r.score,b:r.issuer,l:r.loanEligibilityNgn,at:r.issuedAt,h:r.scoreHash,feeTo:r.feeTo}:false;S.busy=false;go("verify/result")}catch(e){if(e.offline){toast("Backend offline. Showing demo data.");return lookMock()}S.busy=false;toast(e.message);R()}}
+
+const NAV=[["home","home","Home"],["score","user","Score"],["verify","bank","Verify"],["how","info","How"]];
+function R(){setV();if(!USD())S.type="bank";document.documentElement.setAttribute("data-theme",S.theme);const h=S.pg||"landing",pg=P[h]?h:"home",top=pg.split("/")[0];
+$("#app").innerHTML=`<header><div class="logo"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E1B2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></i><span>TrustLayer<small class="sub">NIGERIA</small></span></div><div class="hr"><div class="cur">${["NGN","USD"].map(c=>`<button class="${S.cur===c?"on":""}" onclick="setCur('${c}')">${c==="NGN"?"₦ NGN":"$ USD"}</button>`).join("")}</div><button class="mbtn" aria-label="Switch colours" onclick="setTheme()">${I("contrast",18)}</button><button class="mbtn" aria-label="Menu" onclick="menu(true)">${I("menu",18)}</button></div></header><div class="pg">${P[pg]()}</div>`;
+$("#nav").style.display=pg==="landing"?"none":"";$("#nav").innerHTML=NAV.map(n=>`<a href="#/${n[0]}" onclick="go('${n[0]}');return false" class="${top===n[0]?"on":""}"><i>${I(n[1],20)}</i>${n[2]}</a>`).join("");
+if(pg==="landing")$("header").remove();clearTimeout(R.t);if(pg==="landing")R.t=setTimeout(()=>{if(S.pg==="landing")go("home")},2800);if(pg!==R.last){window.scrollTo(0,0);R.last=pg;chatR()}chk();menuR()}
+S.pg=location.hash.slice(2)||"landing";addEventListener("hashchange",()=>{S.pg=location.hash.slice(2)||"landing";R()});R();
+
+function menu(o){S.menu=o;menuR()}
+function menuR(){const M=[["home","home","Home","var(--blue)"],["score","user","Get my score","var(--teal)"],["verify","bank","Verify a score","var(--blue)"],["how","info","How it works","var(--pl)"]];
+$("#menu").innerHTML=S.menu?`<div class="ov" onclick="menu(false)"><div class="drawer" onclick="event.stopPropagation()"><h3>Menu <button class="mbtn" onclick="menu(false)">${I("x",18)}</button></h3>${M.map(m=>`<button class="mi" style="--c:${m[3]}" onclick="go('${m[0]}')"><span>${I(m[1],18)}</span>${m[2]}</button>`).join("")}<button class="mi" style="--c:var(--vio)" onclick="setTheme()"><span>${I("contrast",18)}</span>Colours: ${S.theme==="wema"?"Wema":"Original"}</button><button class="mi" style="--c:var(--teal)" onclick="menu(false);chatOpen(true)"><span>${I("chat",18)}</span>Customer care</button></div></div>`:""}
+const CH={open:false,typing:false,m:[{b:1,t:"Hi I'm Ada from TrustLayer care. How can I help?"}]};
+const QR=["How do I get a score?","Is my data safe?","How do lenders verify?","Talk to an agent"];
+const KB=[[/fee|charge|cost|price|how much/,()=>"Each on-chain save and each bank verification costs "+feeBoth()+", taken from your bank account (after a code from your bank) or your USD wallet (after you sign in your wallet). The fee is paid to TrustLayer. Getting your score is free."],[/agent|human|person|call|phone|speak/,"Connecting you to a human agent… Our team replies within a few minutes on care@trustlayer.ng."],[/safe|data|privacy|private|secure/,"Your raw transactions never go on-chain. Only a hash is stored, so lenders can verify without seeing your data."],[/verify|lender|check|look/,()=>"Lenders open Verify, enter your "+(USD()?"bank account or wallet":"bank account")+", and see your score and loan limit in seconds."],[/score|get|start|apply|mint/,()=>"Open Get my score, enter your "+(USD()?"bank account or wallet":"bank account")+", set your activity, then tap Get score. Save it on-chain when you're happy."],[/loan|borrow|eligib|limit/,()=>"Your loan limit grows with your score and volume. Example: a score of 700 on "+money(180000)+" monthly volume unlocks about "+money(180000*(1+2*(400/550)))+"."],[/dollar|usd|naira|ngn|currency|rate/,()=>"Switch ₦/$ at the top right. Everything updates. Rate: ₦1,550 = $1. You're viewing "+(USD()?"USD.":"Naira.")],[/bank|wallet|account|nuban/,()=>USD()?"You're in USD mode, so use a 0x USD wallet address.":"Use your 10-digit Nigerian bank account number."],[/hi|hello|hey|good/,"Hello! What do you need help with?"],[/thank/,"You're welcome! "]];
+function chatOpen(o){CH.open=o;chatR()}
+async function say(t){t=(t||"").trim();if(!t||CH.typing)return;CH.m.push({t});CH.typing=true;chatR();let reply;try{const h=CH.m.slice(-10).map(x=>({role:x.b?"assistant":"user",content:x.t.slice(0,500)}));while(h[0]&&h[0].role==="assistant")h.shift();reply=(await api("/api/chat",{method:"POST",headers:JSONH,body:JSON.stringify({messages:h})},20000)).reply}catch(e){}
+if(!reply){const k=(KB.find(k=>k[0].test(t.toLowerCase()))||[0,"I'm not sure yet Try one of the quick options, or tap Talk to an agent."])[1];reply=typeof k==="function"?k():k}
+CH.m.push({b:1,t:reply});CH.typing=false;chatR()}
+function chatR(){const el=$("#chat");if(S.pg==="landing"||!S.pg){el.innerHTML="";return}const v=($("#cin")||{}).value||"";
+if(!CH.open){el.innerHTML=`<button class="fab" aria-label="Customer care" onclick="chatOpen(true)">${I("chat",24)}</button>`;return}
+el.innerHTML=`<div class="chat"><div class="ch">${I("chat",22)}<div>Customer care<small>Online</small></div><button onclick="chatOpen(false)" aria-label="Close">${I("x",18)}</button></div><div class="cm" id="cm">${CH.m.map(x=>`<div class="b ${x.b?"bot":"me"}">${esc(x.t)}</div>`).join("")}${CH.typing?'<div class="b bot">typing…</div>':""}</div>${CH.m.length<3?`<div class="qr">${QR.map(q=>`<button onclick="say(this.textContent)">${q}</button>`).join("")}</div>`:""}<div class="cf"><input type="text" id="cin" placeholder="Type a message" value="${v.replace(/"/g,"&quot;")}" onkeydown="if(event.key==='Enter')say(this.value)"><button onclick="say($('#cin').value)" aria-label="Send">${I("send",18)}</button></div></div>`;
+const c=$("#cm");c.scrollTop=c.scrollHeight;if(!CH.typing&&!v)$("#cin").focus()}
+chatR();
+api("/api/fees").then(f=>{FEE.ngn=f.ngn;FEE.mode=f.mode;FEE.wallet=f.methods.wallet;RATE=f.fx;if(S.pg!=="landing")R()}).catch(()=>{});
+</script>
+</body>
+</html>
